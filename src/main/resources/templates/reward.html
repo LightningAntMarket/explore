@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>LightningAnt Explorer</title>
+
+    <!-- Bootstrap and Theme -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet" />
+    <style>
+        .box >.table-striped >tr:nth-of-type(odd){
+            border:1px solid #f9f9f9;
+            overflow: hidden;
+        }
+        .box1 >.table-striped >tr:nth-of-type(odd){
+            border:1px solid #f9f9f9;
+            overflow: hidden;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+            border:0;
+        }
+        ul,li{
+            list-style: none;
+        }
+        #search1{
+            border: 1px solid #adadad;
+        }
+        .lapname{
+            width:1137px;
+            height:135px;
+            margin: 0 auto;
+            border-top: 1px solid #f3f3f3;
+            border-bottom:1px solid #F3F3F3 ;
+            color:#337AB7;
+            font-size: 14px;
+            line-height: 28px;
+            margin-bottom: 0;
+        }
+        .lapnamelist{
+            width:100%;
+            height:auto;
+            overflow: hidden;
+            color:#337AB7;
+            margin-bottom: 0;
+        }
+        .lapnamelist li{
+            float: left;
+            width:135px;
+            height:30px;
+            line-height: 30px;
+        }
+        .lapnamelist .wh{
+            width:500px;
+        }
+        .pd10{
+            padding-left: 10px;
+            color:#000;
+
+        }
+        .btm{
+            height:38px;
+            line-height: 38px;
+            border-bottom: 1px solid #f3f3f3;
+        }
+        .seeboxtitle{
+            width:115px;
+            height: 53px;
+            background: #f9f9f9;
+            line-height: 53px;
+            text-align: center;
+            color: #337AB7;
+            margin-top: 45px;
+            margin-bottom: 0;
+        }
+        .seebox{
+            width:100%;
+            height:auto;
+            overflow: hidden;
+        }
+        .seeboxlist{
+            width:100%;
+            height:auto;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+        .seeboxlist li{
+            float: left;
+         /*   height:38px;
+            line-height: 38px;*/
+            text-align: center;
+            color: #337AB7;
+            padding:12px 0;
+
+        }
+        .seeboxlist li span{
+            display: block;
+            width:100%;
+            word-break:break-all; /*支持IE，chrome，FF不支持*/
+            word-wrap:break-word;/*支持IE，chrome，FF*/
+            color: #337AB7;
+        }
+        .seeboxlist .seeboxthree span{
+            display: block;
+            width:80%;
+            margin: 0 auto;
+            word-break:break-all; /*支持IE，chrome，FF不支持*/
+            word-wrap:break-word;/*支持IE，chrome，FF*/
+            color: #337AB7;
+        }
+        .seeboxlist .seeboxone{
+            width:170px;
+            text-align: left;
+            padding-left: 20px;
+        }
+        .seeboxlist .seeboxtwo{
+            width:320px;
+        }
+        .seeboxlist .seeboxthree{
+            width:458px;
+        }
+        .seeboxlist .black{
+            width:190px;
+            color: #000;
+        }
+        .seeboxlist .black span{
+            color: #000;
+        }
+        .seeboxlist:nth-of-type(odd){
+            background: #F9F9F9;
+            border: 1px solid #f3f3f3;
+        }
+    </style>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!--<script>-->
+        <!--$(document).ready(function(){-->
+            <!--setInterval(function(){-->
+                <!--$("#recenttx").load('reward?random=' + Math.random().toString() )}, 5000);-->
+        <!--});-->
+    <!--</script>-->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+</head>
+<body>
+<div class="container">
+    <table>
+        <tr>
+            <td>
+                <a title="Back to home" href="/">
+                    <img src="image/LightningAnt-logo.jpg" alt="LightningAnt logo" />
+                </a>
+            </td>
+            <td style="padding-left: 10px;" valign="middle">
+                <h1>
+                    LightningAnt Explorer
+                </h1>
+            </td>
+        </tr>
+    </table>
+    <p>
+        <label>Search by address, block number, transaction or chain name:</label>
+    </p>
+    <form class="form-inline" action="search">
+        <div class="form-group">
+            <input id="search1" type="text" name="str" size="64"  style="height: 32px; margin-right: 10px;" />
+            <button type="submit" class="btn" style="height: 32px; vertical-align: middle;">Search</button>
+
+            <p class="help-block">Address or transaction search requires full characters.</p>
+        </div>
+    </form>
+    <div class="lapname">
+        <ul class="lapnamelist btm">
+            <li class="pd10">Name</li>
+            <li>LAP</li>
+            <li></li>
+        </ul>
+        <ul class="lapnamelist">
+            <li class="pd10">Supply</li>
+            <li>Total:</li>
+            <li class="wh">1000,000,000 LAP</li>
+        </ul>
+        <ul class="lapnamelist">
+            <li class="pd10"></li>
+            <li>Circulation:</li>
+            <li class="wh"></li>
+        </ul>
+        <ul class="lapnamelist">
+            <li class="pd10"></li>
+            <li>Release Rate:</li>
+            <li class="wh"></li>
+        </ul>
+    </div>
+        <div class="seebox">
+            <p class="seeboxtitle">Asset</p>
+            <ul class="seeboxlist" >
+                <li class="seeboxone">Type</li>
+                <li class="seeboxtwo">Address</li>
+                <li class="seeboxthree">Private Key</li>
+                <li class="black">Amount</li>
+            </ul>
+            <ul class="seeboxlist" th:each="assets:${sortMap}" >
+                <li class="seeboxone"><span th:text="${assets.typeName}"></span></li>
+                <li class="seeboxtwo"><span th:text="${assets.pubAddress}"></span> </li>
+                <li class="seeboxthree"><span th:text="${assets.privatekey}"></span></li>
+                <li class="black"><span th:text="${assets.qty}"></span></li>
+            </ul>
+
+
+    </div>
+    <br />
+    <br />
+    <div th:include="footer :: powered"></div>
+</div>
+</body>
+<script>
+
+    $(".op1").click(function () {
+            $(".box").show();
+            $(".box1").hide();
+    })
+    $(".op2").click(function () {
+        $(".box1").show();
+        $(".box").hide();
+    })
+</script>
+</html>
