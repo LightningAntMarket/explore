@@ -1,18 +1,22 @@
 package com.lightningant.explorer.web;
 
-import java.text.DecimalFormat;
-
+import com.lightningant.explorer.service.AssetService;
 import com.lightningant.explorer.service.HomePageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.text.DecimalFormat;
 
 @RestController
 public class TestController {
 	
 	@Autowired
 	private HomePageService service;
-	
+
+	@Autowired
+	private AssetService assetService;
+
 	@RequestMapping("/mem")
 	public String test(){
 		DecimalFormat df = new DecimalFormat("0.00") ;  
@@ -26,9 +30,16 @@ public class TestController {
 	}	
 	@RequestMapping("/index11")
 	public String homepage(){
-		//System.out.println(service + service.getBeidouChain().getChainName());
-		//service.getBeidouChain().setChainName("index");
-		return "ok";
+		System.out.println(service + service.getHomePage().getChainName());
+//		service.getHomePage().setChainName("index");
+		try {
+			if(assetService.listassets().size()!=0){
+				return "ok";
+            }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return  "null";
 	}
 	
 	@RequestMapping("/index21")

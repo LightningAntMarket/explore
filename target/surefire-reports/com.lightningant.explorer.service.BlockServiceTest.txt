@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.lightningant.explorer.service.BlockServiceTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.092 sec - in com.lightningant.explorer.service.BlockServiceTest

@@ -1,14 +1,23 @@
 package com.lightningant.explorer.web;
 
+import com.lightningant.explorer.config.LAPStringConst;
+import com.lightningant.explorer.entity.LapAddressInfo;
 import com.lightningant.explorer.exception.BeidouchainException;
 import com.lightningant.explorer.service.ChainService;
 import com.lightningant.explorer.service.HomePageService;
+import com.lightningant.explorer.utils.JsonMapper;
 import com.lightningant.explorer.utils.StringUtils;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,10 +28,12 @@ public class HomePageController {
 	
 	@Autowired
 	private HomePageService  homePageService;
-	
+
+	@Autowired
+	private OkHttpClient client;
 	@Autowired
 	private ChainService chainService;
-	
+	private 	List<LapAddressInfo> rewardList;
 	@RequestMapping("/")
 	public String homepage(Model model){
 		model.addAttribute("homePage", homePageService.getHomePage());	
@@ -60,26 +71,100 @@ public class HomePageController {
 
 		try {
 			List<String> address = new ArrayList<>();
-			address.add("1Att7WxrtEWmbzfaEr5WUT7PTsThJaucBuy6hq");
-			address.add("1aJuUtix6tGWfCJU4CuZ7DiR2kpigjvTxNt5BM");
-			address.add("1ETiAT8rFN12iK2iB8Xtygr8qyQBgoY9abmynn");
-			address.add("13TGqfGd3Bpuyyha5af6QakPjbcdmy6DspXCUd");
+			address.add(LAPStringConst.MINER_ADDRESS);
+			address.add(LAPStringConst.TEAM_ADDRESS);
+			address.add(LAPStringConst.OPERATION_ADDRESS);
+			address.add(LAPStringConst.LAP_IN_OUT_ADDRESS);
+			address.add(LAPStringConst.LAP_20_IN_OUT_ADDRESS);
+			address.add(LAPStringConst.BLACKHOLE_ADDRESS);
 //			model.addAttribute("allMap", chainService.getmultibalances(address));
 
 			List<String> type = new ArrayList<>();
 			type.add("Miner Rewards");
 			type.add("Team");
 			type.add("Operation");
+			type.add("LAP Address");
+			type.add("LAP ERC20 Address");
 			type.add("Black hole");
+			final Request request = new Request.Builder().url("http://47.104.88.170:8999/getLapNum?countNum=1000").get()
+					.build();
+			List<LapAddressInfo> LapAddressInfo = new ArrayList<>();
+			try (Response response = client.newCall(request).execute()) {
+				String result = response.body().string();
+				rewardList = JsonMapper.getInstance().fromJson(result, JsonMapper.getInstance().createCollectionType(List.class, LapAddressInfo.class));
 
+				for(int i=0;i<20;i++){
+					LapAddressInfo.add(rewardList.get(i));
+				}
+
+			}catch (IOException e) {
+				e.printStackTrace();
+			}
+			model.addAttribute("pageNum",0);
+			model.addAttribute("totalPages",49);
+			model.addAttribute("totalElements",1000);
+			model.addAttribute("laps", LapAddressInfo);
 			model.addAttribute("sortMap", chainService.getaddressbalances(address,type));
-			System.out.print("list");
+
 		} catch (BeidouchainException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "reward";
 	}
+
+
+	@GetMapping(value = "/page")
+	public String findRewardPage(Model model, @RequestParam(value="pageNum") String pageNum){
+		int a = 0;
+		try {
+			a = Integer.parseInt(pageNum);
+		} catch (NumberFormatException e) {
+			a = 0;
+		}
+		if(a<0 )
+			a=0;
+		else if(a>=50){
+			a=49;
+		}
+
+		List<String> address = new ArrayList<>();
+		address.add(LAPStringConst.MINER_ADDRESS);
+		address.add(LAPStringConst.TEAM_ADDRESS);
+		address.add(LAPStringConst.OPERATION_ADDRESS);
+		address.add(LAPStringConst.LAP_IN_OUT_ADDRESS);
+		address.add(LAPStringConst.LAP_20_IN_OUT_ADDRESS);
+		address.add(LAPStringConst.BLACKHOLE_ADDRESS);
+//			model.addAttribute("allMap", chainService.getmultibalances(address));
+
+		List<String> type = new ArrayList<>();
+		type.add("Miner Rewards");
+		type.add("Team");
+		type.add("Operation");
+		type.add("LAP Address");
+		type.add("LAP ERC20 Address");
+		type.add("Black hole");
+
+		List<LapAddressInfo> mlist = new ArrayList<>();
+
+		for(int i=0;i<20;i++){
+			mlist.add(rewardList.get(i+a*20));
+		}
+
+		int pagenum=a;
+		model.addAttribute("page",mlist);
+		model.addAttribute("pageNum",pagenum);
+		model.addAttribute("totalPages",49);
+		model.addAttribute("laps", mlist);
+		model.addAttribute("totalElements",1000);
+		try {
+			model.addAttribute("sortMap", chainService.getaddressbalances(address,type));
+		} catch (BeidouchainException e) {
+			e.printStackTrace();
+		}
+		return "reward";
+	}
+
 	@RequestMapping("/search")
 	public String search(String str,Model model){
 		
@@ -101,7 +186,7 @@ public class HomePageController {
 		}
 		
 		//地址长度
-		if(str.length() == 38){
+		if(str.length() == 38 ||str.length() == 37){
 			return "redirect:address?address=" +str;
 		}
 		

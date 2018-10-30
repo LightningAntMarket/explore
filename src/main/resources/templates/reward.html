@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -12,64 +13,75 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/bootstrap-theme.min.css" rel="stylesheet" />
     <style>
-        .box >.table-striped >tr:nth-of-type(odd){
-            border:1px solid #f9f9f9;
+        .box>.table-striped>tr:nth-of-type(odd) {
+            border: 1px solid #f9f9f9;
             overflow: hidden;
         }
-        .box1 >.table-striped >tr:nth-of-type(odd){
-            border:1px solid #f9f9f9;
+
+        .box1>.table-striped>tr:nth-of-type(odd) {
+            border: 1px solid #f9f9f9;
             overflow: hidden;
         }
-        *{
+
+        * {
             margin: 0;
             padding: 0;
-            border:0;
+            border: 0;
         }
-        ul,li{
+
+        ul,
+        li {
             list-style: none;
         }
-        #search1{
+
+        #search1 {
             border: 1px solid #adadad;
         }
-        .lapname{
-            width:1137px;
-            height:135px;
+
+        .lapname {
+            width: 1137px;
+            height: 135px;
             margin: 0 auto;
             border-top: 1px solid #f3f3f3;
-            border-bottom:1px solid #F3F3F3 ;
-            color:#337AB7;
+            border-bottom: 1px solid #F3F3F3;
+            color: #337AB7;
             font-size: 14px;
             line-height: 28px;
             margin-bottom: 0;
         }
-        .lapnamelist{
-            width:100%;
-            height:auto;
+
+        .lapnamelist {
+            width: 100%;
+            height: auto;
             overflow: hidden;
-            color:#337AB7;
+            color: #337AB7;
             margin-bottom: 0;
         }
-        .lapnamelist li{
+
+        .lapnamelist li {
             float: left;
-            width:135px;
-            height:30px;
+            width: 135px;
+            height: 30px;
             line-height: 30px;
         }
-        .lapnamelist .wh{
-            width:500px;
-        }
-        .pd10{
-            padding-left: 10px;
-            color:#000;
 
+        .lapnamelist .wh {
+            width: 500px;
         }
-        .btm{
-            height:38px;
+
+        .pd10 {
+            padding-left: 10px;
+            color: #000;
+        }
+
+        .btm {
+            height: 38px;
             line-height: 38px;
             border-bottom: 1px solid #f3f3f3;
         }
-        .seeboxtitle{
-            width:115px;
+
+        .seeboxtitle {
+            width: 115px;
             height: 53px;
             background: #f9f9f9;
             line-height: 53px;
@@ -78,79 +90,97 @@
             margin-top: 45px;
             margin-bottom: 0;
         }
-        .seebox{
-            width:100%;
-            height:auto;
+
+        .seebox {
+            width: 100%;
+            height: auto;
             overflow: hidden;
         }
-        .seeboxlist{
-            width:100%;
-            height:auto;
+
+        .seeboxlist {
+            width: 100%;
+            height: auto;
             overflow: hidden;
             margin-bottom: 0;
         }
-        .seeboxlist li{
+
+        .seeboxlist li {
             float: left;
-         /*   height:38px;
-            line-height: 38px;*/
+            /*   height:38px;
+        line-height: 38px;*/
             text-align: center;
             color: #337AB7;
-            padding:12px 0;
+            padding: 12px 0;
+        }
 
-        }
-        .seeboxlist li span{
+        .seeboxlist li span {
             display: block;
-            width:100%;
-            word-break:break-all; /*支持IE，chrome，FF不支持*/
-            word-wrap:break-word;/*支持IE，chrome，FF*/
+            width: 100%;
+            word-break: break-all;
+            /*支持IE，chrome，FF不支持*/
+            word-wrap: break-word;
+            /*支持IE，chrome，FF*/
             color: #337AB7;
         }
-        .seeboxlist .seeboxthree span{
+
+        .seeboxlist .seeboxthree span {
             display: block;
-            width:80%;
+            width: 80%;
             margin: 0 auto;
-            word-break:break-all; /*支持IE，chrome，FF不支持*/
-            word-wrap:break-word;/*支持IE，chrome，FF*/
+            word-break: break-all;
+            /*支持IE，chrome，FF不支持*/
+            word-wrap: break-word;
+            /*支持IE，chrome，FF*/
             color: #337AB7;
         }
-        .seeboxlist .seeboxone{
-            width:170px;
+
+        .seeboxlist .seeboxone {
+            width: 170px;
             text-align: left;
             padding-left: 20px;
         }
-        .seeboxlist .seeboxtwo{
-            width:320px;
+
+        .seeboxlist .seeboxtwo {
+            width: 320px;
         }
-        .seeboxlist .seeboxthree{
-            width:458px;
+
+        .seeboxlist .seeboxthree {
+            width: 458px;
         }
-        .seeboxlist .black{
-            width:190px;
+
+        .seeboxlist .black {
+            width: 190px;
             color: #000;
         }
-        .seeboxlist .black span{
+
+        .seeboxlist .black span {
             color: #000;
         }
-        .seeboxlist:nth-of-type(odd){
+
+        .seeboxlist:nth-of-type(odd) {
             background: #F9F9F9;
             border: 1px solid #f3f3f3;
         }
     </style>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-1.11.3.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 
     <!--<script>-->
-        <!--$(document).ready(function(){-->
-            <!--setInterval(function(){-->
-                <!--$("#recenttx").load('reward?random=' + Math.random().toString() )}, 5000);-->
-        <!--});-->
+    <!--$(document).ready(function(){-->
+    <!--setInterval(function(){-->
+    <!--$("#recenttx").load('reward?random=' + Math.random().toString() )}, 5000);-->
+    <!--});-->
     <!--</script>-->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 </head>
+
 <body>
 <div class="container">
     <table>
@@ -172,7 +202,7 @@
     </p>
     <form class="form-inline" action="search">
         <div class="form-group">
-            <input id="search1" type="text" name="str" size="64"  style="height: 32px; margin-right: 10px;" />
+            <input id="search1" type="text" name="str" size="64" style="height: 32px; margin-right: 10px;" />
             <button type="submit" class="btn" style="height: 32px; vertical-align: middle;">Search</button>
 
             <p class="help-block">Address or transaction search requires full characters.</p>
@@ -200,22 +230,74 @@
             <li class="wh"></li>
         </ul>
     </div>
-        <div class="seebox">
-            <p class="seeboxtitle">Asset</p>
-            <ul class="seeboxlist" >
-                <li class="seeboxone">Type</li>
-                <li class="seeboxtwo">Address</li>
-                <li class="seeboxthree">Private Key</li>
-                <li class="black">Amount</li>
-            </ul>
-            <ul class="seeboxlist" th:each="assets:${sortMap}" >
-                <li class="seeboxone"><span th:text="${assets.typeName}"></span></li>
-                <li class="seeboxtwo"><span th:text="${assets.pubAddress}"></span> </li>
-                <li class="seeboxthree"><span th:text="${assets.privatekey}"></span></li>
-                <li class="black"><span th:text="${assets.qty}"></span></li>
-            </ul>
+    <div class="seebox">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active" id="all">
+                <a href="#home" data-toggle="tab">
+                    All Holders
+                </a>
+            </li>
+            <li id="allocation">
+                <a href="#ios" data-toggle="tab">
+                    LAP Allocation
+                </a>
+            </li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
 
-
+            <div class="tab-pane fade in active" id="home">
+                <ul class="seeboxlist" >
+                    <li class="seeboxtwo">Address</li>
+                    <li class="seeboxthree">Percentage</li>
+                    <li class="black">Amount</li>
+                </ul>
+                <ul class="seeboxlist" th:each="assets:${laps}" >
+                    <li class="seeboxtwo"><span th:text="${assets.address}"></span> </li>
+                    <!--<li class="seeboxthree"><span th:text="${assets.valueLap}/ ${10000000}+'%'"></span></li>-->
+                    <li class="seeboxthree"><span th:text="${#numbers.formatDecimal(assets.valueLap/ 10000000,  1, 'COMMA', 4, 'POINT')}+'%'"></span></li>
+                                            <!--<span th:text="${#numbers.formatDecimal(money, 0, 2)}"></span>-->
+                    <li class="black"><span th:text="${assets.valueLap}"></span></li>
+                </ul>
+            </div>
+            <div class="tab-pane fade" id="ios">
+                <ul class="seeboxlist" >
+                    <li class="seeboxone">Type</li>
+                    <li class="seeboxtwo">Address</li>
+                    <li class="seeboxthree">Private Key</li>
+                    <li class="black">Amount</li>
+                </ul>
+                <ul class="seeboxlist" th:each="assets:${sortMap}" >
+                    <li class="seeboxone"><span th:text="${assets.typeName}"></span></li>
+                    <li class="seeboxtwo"><span th:text="${assets.pubAddress}"></span> </li>
+                    <li class="seeboxthree"><span th:text="${assets.privatekey}"></span></li>
+                    <li class="black"><span th:text="${assets.qty}"></span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6 pull-right" style="display:inline-block; text-align: right; margin-bottom:20px" id="nav1">
+        <span style="white-space: nowrap; display: inline-block">
+            <a class="btn btn-primary btn-xs logout " th:href="@{'page?pageNum=' + ${0}}">First</a>
+            <a class="btn btn-primary btn-xs logout " th:href="@{'page?pageNum=' + ${pageNum-1}}">Prev</a>
+            <span style="padding: 2px 4px 4px 3px; border: 1px solid #D4D4D4; line-height: 30px; background-color: #EAEAEA; margin-top: 2px; height: 2px;"
+                  th:text="'Page '+${pageNum+1} +' of '+${totalPages+1}"
+            >
+            </span>
+                  <a class="btn btn-default btn-xs logout " th:href="@{'page?pageNum=' + ${pageNum+1}}">Next</a>
+                 <a class="btn btn-default btn-xs logout" th:href="@{'page?pageNum=' + ${totalPages}}">Last</a>
+        </span>
+        </div>
+        <!--<ul class="pager">-->
+            <!--<li class="btn btn-primary btn-xs logout ">-->
+                <!--<a  th:href="@{'page?pageNum=' + ${0}}">&larr; Older</a>-->
+            <!--</li>-->
+            <!--<li class="previous">-->
+                <!--<a  th:href="@{'page?pageNum=' + ${pageNum-1}}">&larr; Older</a>-->
+            <!--</li>-->
+            <!--<li class="next">-->
+                <!--<a th:href="@{'page?pageNum=' + ${50}}">Newer &rarr;</a>-->
+                <!--&lt;!&ndash;<a th:href="@{'block?hash=' + ${map.get('previousblockhash')}}">&ndash;&gt;-->
+            <!--</li>-->
+        <!--</ul>-->
     </div>
     <br />
     <br />
@@ -223,14 +305,15 @@
 </div>
 </body>
 <script>
+    $(function () {
+        $("#all").click(function() {
+            $("#nav1").show();
+        })
+        $("#allocation").click(function() {
+            $("#nav1").hide();
+        })
+    })
 
-    $(".op1").click(function () {
-            $(".box").show();
-            $(".box1").hide();
-    })
-    $(".op2").click(function () {
-        $(".box1").show();
-        $(".box").hide();
-    })
 </script>
+
 </html>

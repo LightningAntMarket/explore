@@ -28,7 +28,7 @@ public class OkHttpClientConfig {
 				String credential = Credentials.basic(config.getRpcUser(), config.getRpcPassword());
 				return response.request().newBuilder().header("Authorization", credential).build();
 			}
-		}).connectTimeout(10, TimeUnit.SECONDS).readTimeout(10, TimeUnit.SECONDS).writeTimeout(10, TimeUnit.SECONDS)
+		}).connectTimeout(60, TimeUnit.SECONDS).readTimeout(60, TimeUnit.SECONDS).writeTimeout(60, TimeUnit.SECONDS)
 				.build();
 	}
 }

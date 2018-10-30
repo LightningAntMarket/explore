@@ -1,24 +1,18 @@
 package com.lightningant.explorer.service;
 
-import java.io.IOException;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.lightningant.explorer.config.RPCServerConfig;
 import com.lightningant.explorer.entity.LightningAntRPCParams;
 import com.lightningant.explorer.entity.LightningAntRPCResult;
 import com.lightningant.explorer.exception.BeidouchainException;
 import com.lightningant.explorer.utils.JsonMapper;
+import okhttp3.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import java.io.IOException;
+import java.util.List;
 
 @Service
 public class BaseService {
@@ -41,15 +35,16 @@ public class BaseService {
 		paramObject.setParams(params);
 		String paramToJson = JsonMapper.getInstance().toJson(paramObject);
 
-		logger.info("paramToJson:" + paramToJson);
+//		logger.info("paramToJson:" + paramToJson);
 		RequestBody body = RequestBody.create(JSON, paramToJson);
+
 		final Request request = new Request.Builder().url("http://" + config.getRpcIp() + ":" + config.getRpcPort())
 				.post(body).build();
 
 		try (Response response = client.newCall(request).execute()) {
 
 			String result = response.body().string();
-			logger.info("result : " + result);
+//			logger.info("result : " + result);
 			beidouChainRPCResult = JsonMapper.getInstance().fromJson(result, LightningAntRPCResult.class);
 			if (beidouChainRPCResult != null && beidouChainRPCResult.getError() == null) {
 				return beidouChainRPCResult.getResult();

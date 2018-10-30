@@ -1,9 +1,14 @@
 package com.lightningant.explorer.config;
 
+import com.lightningant.explorer.entity.Asset20;
 import com.lightningant.explorer.entity.HomePage;
 import com.lightningant.explorer.entity.Transaction;
 import com.lightningant.explorer.exception.BeidouchainException;
 import com.lightningant.explorer.service.*;
+import com.lightningant.explorer.utils.JsonMapper;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +37,9 @@ public class UpdateHomePageJob {
 
 	@Autowired
 	private BlockService blockService;
+
+	@Autowired
+	private OkHttpClient client;
 
 	@Scheduled(fixedRate = 100000) // 10秒更新一次
 	public void runUpdateTransActionJob() {
@@ -109,6 +117,22 @@ public class UpdateHomePageJob {
 		} catch (BeidouchainException e) {
 			logger.error("runUpdateTransActionJob 更新失败！" + e.getLocalizedMessage());
 			e.printStackTrace();
+		}
+	}
+
+	@Scheduled(fixedRate = 10000) // 10秒更新一次
+	public void runUpdateETHJob() {
+		String url="http://91baisong.com/bs_cn/Android/Erc20/Erc20LapAmount";
+		Request request = new Request.Builder()
+				.url(url)
+				.build();
+		try (Response response = client.newCall(request).execute()) {
+			Asset20 assets20=	JsonMapper.getInstance().fromJson(response.body().string(),Asset20.class);
+			if(null!= assets20){
+				LAPStringConst.ERC20_BALANCE = Double.parseDouble(assets20.getResult())/10000000000000000L;
+			}
+		}catch (Exception e){
+			logger.info("eeeee="+e.getMessage());
 		}
 	}
 }

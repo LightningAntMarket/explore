@@ -32,7 +32,7 @@ public class AssetController {
 		}
 		return "assets";
 	}		
-	
+
 	@RequestMapping("/assetref")
 	public String assets(String ref,Model model){
 		

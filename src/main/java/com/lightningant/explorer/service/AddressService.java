@@ -1,13 +1,12 @@
 package com.lightningant.explorer.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.lightningant.explorer.entity.Asset;
-import org.springframework.stereotype.Service;
-
 import com.lightningant.explorer.exception.BeidouchainException;
 import com.lightningant.explorer.utils.JsonMapper;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class AddressService extends BaseService{
@@ -31,6 +30,8 @@ public class AddressService extends BaseService{
 		String method  = "importaddress";
 		List<Object> params = new ArrayList<Object>();
 		params.add(address);
+		params.add("");
+		params.add(false);
 		execute(method, params);
 	}
 }
