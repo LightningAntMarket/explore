@@ -86,7 +86,7 @@ public class HomePageController {
 			type.add("LAP Address");
 			type.add("LAP ERC20 Address");
 			type.add("Black hole");
-			final Request request = new Request.Builder().url("http://47.104.88.170:8999/getLapNum?countNum=1000").get()
+			final Request request = new Request.Builder().url("").get()
 					.build();
 			List<LapAddressInfo> LapAddressInfo = new ArrayList<>();
 			try (Response response = client.newCall(request).execute()) {
